@@ -74,7 +74,10 @@ function MyArrayProto() {
       return;
     }
 
-    const newMyArray = this;
+    const newMyArray = new MyArray();
+    for(let i = 0; i < this.length ;i++){
+      newMyArray.push(this[i]);
+    }
 
     if ((arguments[0] instanceof Array) || (arguments[0] instanceof MyArray)) {
       for (let i = 0; i < arguments[0].length; i++) {
@@ -87,6 +90,27 @@ function MyArrayProto() {
     }
     return newMyArray;
   };
+
+  /**
+  * method to reveerse MyArray 
+  * @method
+  * @returns {object | undefined} 
+  */
+    this.reverse = function () {
+      if (this.length === 0) {
+        return;
+      }
+      
+      const normArray = [];
+      for(let i = 0; i < this.length; i++){
+        normArray.push(this[i]);
+      }
+      normArray.reverse();
+      for(let i = 0; i < this.length; i++){
+        this[i] = normArray[i];
+      }
+      return this;
+    };
 }
 
 // Объекты с данными
@@ -112,15 +136,12 @@ function MyArray() {
 // Создаём прототип(связь между объектами). Наследование
 MyArray.prototype = new MyArrayProto();
 
-const myArray = new MyArray();
-const myArray2 = new MyArray();
+const myArray = new MyArray(1, 5, 3, 7);
+const myArray2 = new MyArray(5, 8);
 const arr = new Array(1, 5, 3, 7);
 const q1 = myArray.concat(myArray2);
+q1.reverse();
 
 console.log(arr);
-// myArray.push(1);
-// myArray.push(2);
-// myArray.push(3);
-// myArray.push(4);
-// myArray.unshift(7, 8, 9);
+
 console.log(myArray);

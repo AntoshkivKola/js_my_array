@@ -120,6 +120,26 @@ function MyArrayProto() {
 
     return this;
   };
+
+  /**
+  * method creates a new MyArray with the result of calling the specified function for each element of the MyArray. 
+  * @method
+  * @param {Function}
+  * @returns {Element | undefined} 
+  * 
+  */
+  this.map = function (fun) {
+    if (this.length === 0) {
+      return;
+    }
+    let newMyArray = new MyArray();
+    for(let i = 0; i < this.length; i++){
+      newMyArray.push(fun(this[i]));
+    }
+
+    return newMyArray;
+  };
+
 }
 
 // Объекты с данными
@@ -146,9 +166,11 @@ function MyArray() {
 MyArray.prototype = new MyArrayProto();
 
 const myArray = new MyArray(1, 5, 3, 7);
-const myArray2 = new MyArray(5, 8,6);
+const myArray2 = new MyArray(5, 8, 6);
 const arr = new Array(1, 5, 3, 7);
-const q1 = myArray.concat(myArray2);
+const q1 = myArray.map(function(num) {
+  return num * 2;
+});
 console.log(q1);
 q1.reverse();
 console.log(q1);

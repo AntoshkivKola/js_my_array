@@ -3,6 +3,7 @@
 function MyArrayProto() {
   /**
    * method to add one ore more elemnt`s in end to MyArray 
+   * @method
    * @param {any}
    * @returns {number} this.length
    */
@@ -12,11 +13,11 @@ function MyArrayProto() {
     }
     return this.length;
   };
-  
+
   /**
    * method to delete one elemnt in end to MyArray 
-   * 
-   * @returns {object | undefined} last elemen
+   * @method
+   * @returns {Element | undefined} last elemen
    */
   this.pop = function () {
     if (this.length === 0) {
@@ -29,6 +30,7 @@ function MyArrayProto() {
 
   /**
    * method to add one ore more elemnt`s in start to MyArray 
+   * @method
    * @param {any}
    * @returns {number} this.length
    */
@@ -56,12 +58,20 @@ function MyArray() {
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
   }
+  /**
+   * method to check if an object is MyArray
+   * @returns {boolean}
+   */
+  this.isMyArray = function () {
+    return this instanceof MyArray;
+  }
 }
 // Создаём прототип(связь между объектами). Наследование
 MyArray.prototype = new MyArrayProto();
 
 const myArray = new MyArray(1, 5, 3, 7);
 const arr = new Array(1, 5, 3, 7);
+
 console.log(arr);
 // myArray.push(1);
 // myArray.push(2);

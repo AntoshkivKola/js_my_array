@@ -133,12 +133,31 @@ function MyArrayProto() {
       return;
     }
     let newMyArray = new MyArray();
-    for(let i = 0; i < this.length; i++){
+    for (let i = 0; i < this.length; i++) {
       newMyArray.push(fun(this[i]));
     }
 
     return newMyArray;
   };
+
+  /**
+ * method executes the specified function once for each element in the array.
+ * @method
+ * @param {Function}
+ * @returns {undefined} 
+ * 
+ */
+  this.forEach = function (fun) {
+    if (this.length === 0) {
+      return;
+    }
+    for (let i = 0; i < this.length; i++) {
+      fun(this[i]);
+    }
+
+    return;
+  };
+
 
 }
 
@@ -168,12 +187,15 @@ MyArray.prototype = new MyArrayProto();
 const myArray = new MyArray(1, 5, 3, 7);
 const myArray2 = new MyArray(5, 8, 6);
 const arr = new Array(1, 5, 3, 7);
-const q1 = myArray.map(function(num) {
+const q1 = myArray.map(function (num) {
   return num * 2;
 });
 console.log(q1);
 q1.reverse();
 console.log(q1);
+q1.forEach((element) => {
+  console.log(element);
+});
 // console.log(arr);
 
 // console.log(myArray);

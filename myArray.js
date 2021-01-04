@@ -75,7 +75,7 @@ function MyArrayProto() {
     }
 
     const newMyArray = new MyArray();
-    for(let i = 0; i < this.length ;i++){
+    for (let i = 0; i < this.length; i++) {
       newMyArray.push(this[i]);
     }
 
@@ -96,21 +96,30 @@ function MyArrayProto() {
   * @method
   * @returns {object | undefined} 
   */
-    this.reverse = function () {
-      if (this.length === 0) {
-        return;
-      }
-      
-      const normArray = [];
-      for(let i = 0; i < this.length; i++){
-        normArray.push(this[i]);
-      }
-      normArray.reverse();
-      for(let i = 0; i < this.length; i++){
-        this[i] = normArray[i];
-      }
-      return this;
-    };
+  this.reverse = function () {
+    if (this.length === 0) {
+      return;
+    }
+
+    /* :)
+     const normArray = [];
+     for(let i = 0; i < this.length; i++){
+       normArray.push(this[i]);
+     }
+     normArray.reverse();
+     for(let i = 0; i < this.length; i++){
+       this[i] = normArray[i];
+     }
+     */
+    let item = null;
+    for (let i = 0; i < Math.ceil(this.length / 2); i++) {
+      item = this[i];
+      this[i] = this[this.length - 1 - i];
+      this[this.length - 1 - i] = item;
+    }
+
+    return this;
+  };
 }
 
 // Объекты с данными
@@ -137,11 +146,12 @@ function MyArray() {
 MyArray.prototype = new MyArrayProto();
 
 const myArray = new MyArray(1, 5, 3, 7);
-const myArray2 = new MyArray(5, 8);
+const myArray2 = new MyArray(5, 8,6);
 const arr = new Array(1, 5, 3, 7);
 const q1 = myArray.concat(myArray2);
+console.log(q1);
 q1.reverse();
+console.log(q1);
+// console.log(arr);
 
-console.log(arr);
-
-console.log(myArray);
+// console.log(myArray);

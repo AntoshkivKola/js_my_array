@@ -44,6 +44,21 @@ function MyArrayProto() {
     }
     return this.length;
   };
+
+  /**
+   * method to delete one elemnt in start to MyArray 
+   * @method
+   * @returns {Element | undefined} last elemen
+   */
+  this.shift = function () {
+    if (this.length === 0) {
+      return;
+    }
+    const firstItem = this[0];
+    delete this[0];
+    --this.length;
+    return firstItem;
+  };
 }
 
 // Объекты с данными

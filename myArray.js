@@ -121,13 +121,13 @@ function MyArrayProto() {
     return this;
   };
 
-  /**
-  * method creates a new MyArray with the result of calling the specified function for each element of the MyArray. 
-  * @method
-  * @param {Function}
-  * @returns {Element | undefined} 
-  * 
-  */
+   /**
+    * method creates a new MyArray with the result of calling the specified function for each element of the MyArray. 
+    * @method
+    * @param {Function}
+    * @returns {Element | undefined} 
+    * 
+    */
   this.map = function (fun) {
     if (this.length === 0) {
       return;
@@ -141,11 +141,11 @@ function MyArrayProto() {
   };
 
   /**
- * method executes the specified function once for each element in the array.
- * @method
- * @param {Function}
- * @returns {undefined} 
- * 
+   * method executes the specified function once for each element in the array.
+   * @method
+   * @param {Function}
+   * @returns {undefined} 
+   * 
  */
   this.forEach = function (fun) {
     if (this.length === 0) {
@@ -158,7 +158,40 @@ function MyArrayProto() {
     return;
   };
 
+   /**
+   * Method checks if all elements of the array
+   * satisfy the condition specified in the passed function.
+   * @method
+   * @param {Function}
+   * @returns {boolean} 
+   * 
+ */
+  this.every = function every(func){
+    for(let i = 0; i < this.length; i++){
+      if(!func(this[i], i, this)){
+        return false;
+      }
+    }
+    return true;
+  }
 
+  /**
+   * Method creates a new array with all elements 
+   * that passed the validation specified in the passed function.
+   * @method
+   * @param {Function}
+   * @returns {MyArray} 
+   * 
+ */
+  this.filter = function filter(func){
+    const newArray = new MyArray();
+    for(let i = 0; i < this.length; i++){
+      if(func(this[i], i, this)){
+        newArray.push(this[i]);
+      }
+    }
+    return newArray;
+  }
 }
 
 // Объекты с данными

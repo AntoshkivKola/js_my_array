@@ -8,7 +8,7 @@ function MyArrayProto() {
  * @param {any}
  * @returns {number} this.length
  */
-  this.push = function push() {
+  this.push = () => {
     for (let i = 0; i < arguments.length; i++) {
       this[this.length++] = arguments[i];
     }
@@ -21,7 +21,7 @@ function MyArrayProto() {
  * @method
  * @returns {Element | undefined} last element
  */
-  this.pop = function () {
+  this.pop = () => {
     if (this.length === 0) {
       return;
     }
@@ -37,7 +37,7 @@ function MyArrayProto() {
  * @param {any}
  * @returns {number} this.length
  */
-  this.unshift = function () {
+  this.unshift = () => {
     for (let i = (this.length + arguments.length - 1); i > 0; i--) {
       this[i] = this[i - (arguments.length)];
     }
@@ -53,7 +53,7 @@ function MyArrayProto() {
  * @method
  * @returns {Element | undefined} first element
  */
-  this.shift = function () {
+  this.shift = () => {
     if (this.length === 0) {
       return;
     }
@@ -69,7 +69,7 @@ function MyArrayProto() {
   * @param {any}
   * @returns {Object | undefined} MyArray
   */
-  this.concat = function () {
+  this.concat = () => {
     if (this.length === 0 && (arguments.length === 0 || arguments[0].length === 0)) {
       return;
     }
@@ -96,7 +96,7 @@ function MyArrayProto() {
   * @method
   * @returns {object | undefined} 
   */
-  this.reverse = function () {
+  this.reverse = () => {
     if (this.length === 0) {
       return;
     }
@@ -121,14 +121,14 @@ function MyArrayProto() {
     return this;
   };
 
-   /**
-    * method creates a new MyArray with the result of calling the specified function for each element of the MyArray. 
-    * @method
-    * @param {Function}
-    * @returns {Element | undefined} 
-    * 
-    */
-  this.map = function (fun) {
+  /**
+   * method creates a new MyArray with the result of calling the specified function for each element of the MyArray. 
+   * @method
+   * @param {Function}
+   * @returns {Element | undefined} 
+   * 
+   */
+  this.map = (fun) => {
     if (this.length === 0) {
       return;
     }
@@ -147,7 +147,7 @@ function MyArrayProto() {
    * @returns {undefined} 
    * 
  */
-  this.forEach = function (fun) {
+  this.forEach = (fun) => {
     if (this.length === 0) {
       return;
     }
@@ -158,17 +158,17 @@ function MyArrayProto() {
     return;
   };
 
-   /**
-   * Method checks if all elements of the array
-   * satisfy the condition specified in the passed function.
-   * @method
-   * @param {Function}
-   * @returns {boolean} 
-   * 
- */
-  this.every = function every(func){
-    for(let i = 0; i < this.length; i++){
-      if(!func(this[i], i, this)){
+  /**
+  * Method checks if all elements of the array
+  * satisfy the condition specified in the passed function.
+  * @method
+  * @param {Function}
+  * @returns {boolean} 
+  * 
+*/
+  this.every = (func) => {
+    for (let i = 0; i < this.length; i++) {
+      if (!func(this[i], i, this)) {
         return false;
       }
     }
@@ -183,10 +183,10 @@ function MyArrayProto() {
    * @returns {MyArray} 
    * 
  */
-  this.filter = function filter(func){
+  this.filter = (func) => {
     const newArray = new MyArray();
-    for(let i = 0; i < this.length; i++){
-      if(func(this[i], i, this)){
+    for (let i = 0; i < this.length; i++) {
+      if (func(this[i], i, this)) {
         newArray.push(this[i]);
       }
     }
@@ -210,9 +210,8 @@ function MyArray() {
    * method to check if an object is MyArray
    * @returns {boolean}
    */
-  this.isMyArray = function () {
-    return this instanceof MyArray;
-  }
+  this.isMyArray = () => this instanceof MyArray;
+
 }
 // Создаём прототип(связь между объектами). Наследование
 MyArray.prototype = new MyArrayProto();

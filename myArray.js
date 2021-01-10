@@ -134,7 +134,7 @@ function MyArrayProto() {
     }
     let newMyArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
-      newMyArray.push(fun(this[i]));
+      newMyArray.push(fun(this[i], i, this));
     }
 
     return newMyArray;
@@ -152,7 +152,7 @@ function MyArrayProto() {
       return;
     }
     for (let i = 0; i < this.length; i++) {
-      fun(this[i]);
+      fun(this[i], i, this);
     }
 
     return;

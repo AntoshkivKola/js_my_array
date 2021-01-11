@@ -206,13 +206,15 @@ function MyArray() {
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
   }
-  /**
-   * method to check if an object is MyArray
-   * @returns {boolean}
-   */
-  this.isMyArray = () => this instanceof MyArray;
-
 }
+
+/**
+ * method to check if an object is MyArray
+ * @param {object}
+ * @returns {boolean}
+ */
+MyArray.isMyArray = (obj) => obj instanceof MyArray;
+
 // Создаём прототип(связь между объектами). Наследование
 MyArray.prototype = new MyArrayProto();
 

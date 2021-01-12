@@ -8,7 +8,7 @@ function MyArrayProto() {
  * @param {any}
  * @returns {number} this.length
  */
-  this.push = () => {
+  this.push = function push() {
     for (let i = 0; i < arguments.length; i++) {
       this[this.length++] = arguments[i];
     }
@@ -21,7 +21,7 @@ function MyArrayProto() {
  * @method
  * @returns {Element | undefined} last element
  */
-  this.pop = () => {
+  this.pop = function pop() {
     if (this.length === 0) {
       return;
     }
@@ -37,7 +37,7 @@ function MyArrayProto() {
  * @param {any}
  * @returns {number} this.length
  */
-  this.unshift = () => {
+  this.unshift = function unshift() {
     for (let i = (this.length + arguments.length - 1); i > 0; i--) {
       this[i] = this[i - (arguments.length)];
     }
@@ -53,7 +53,7 @@ function MyArrayProto() {
  * @method
  * @returns {Element | undefined} first element
  */
-  this.shift = () => {
+  this.shift = function shift() {
     if (this.length === 0) {
       return;
     }
@@ -69,7 +69,7 @@ function MyArrayProto() {
   * @param {any}
   * @returns {Object | undefined} MyArray
   */
-  this.concat = () => {
+  this.concat = function concat() {
     if (this.length === 0 && (arguments.length === 0 || arguments[0].length === 0)) {
       return;
     }
@@ -96,7 +96,7 @@ function MyArrayProto() {
   * @method
   * @returns {object | undefined} 
   */
-  this.reverse = () => {
+  this.reverse = function reverse() {
     if (this.length === 0) {
       return;
     }
@@ -128,7 +128,7 @@ function MyArrayProto() {
    * @returns {Element | undefined} 
    * 
    */
-  this.map = (fun) => {
+  this.map = function map(fun) {
     if (this.length === 0) {
       return;
     }
@@ -147,7 +147,7 @@ function MyArrayProto() {
    * @returns {undefined} 
    * 
  */
-  this.forEach = (fun) => {
+  this.forEach = function forEach(fun) {
     if (this.length === 0) {
       return;
     }
@@ -166,7 +166,7 @@ function MyArrayProto() {
   * @returns {boolean} 
   * 
 */
-  this.every = (func) => {
+  this.every = function every(func) {
     for (let i = 0; i < this.length; i++) {
       if (!func(this[i], i, this)) {
         return false;
@@ -183,7 +183,7 @@ function MyArrayProto() {
    * @returns {MyArray} 
    * 
  */
-  this.filter = (func) => {
+  this.filter = function filter(func) {
     const newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
       if (func(this[i], i, this)) {
@@ -191,6 +191,31 @@ function MyArrayProto() {
       }
     }
     return newArray;
+  }
+
+  /**
+   * Method creates a new array with all elements 
+   * that passed the validation specified in the passed function.
+   * @method
+   * @param {Function}
+   * @returns {MyArray} 
+   * 
+ */
+  this.flat = function flat(depth = 1) {
+    const result = new MyArray();
+    this.forEach((elem) => {
+      if (MyArray.isMyArray(elem)) {
+        if (depht > 1) {
+          this.flat(depth - 1)
+        } else {
+          result.push(elem);
+        }
+      } else {
+        result.push(elem);
+      }
+    });
+
+    return result;
   }
 }
 
@@ -219,17 +244,13 @@ MyArray.isMyArray = (obj) => obj instanceof MyArray;
 MyArray.prototype = new MyArrayProto();
 
 const myArray = new MyArray(1, 5, 3, 7);
+
 const myArray2 = new MyArray(5, 8, 6);
-const arr = new Array(1, 5, 3, 7);
-const q1 = myArray.map(function (num) {
-  return num * 2;
-});
-console.log(q1);
-q1.reverse();
-console.log(q1);
-q1.forEach((element) => {
-  console.log(element);
-});
+const myArr = new MyArray(1, 2, myArray2);
+//console.log(myArray2);
+const m = myArr.flat()
+console.log(m);
+
 // console.log(arr);
 
 // console.log(myArray);

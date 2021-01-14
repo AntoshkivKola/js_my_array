@@ -193,28 +193,16 @@ function MyArrayProto() {
     return newArray;
   }
 
-  /**
-   * Method creates a new array with all elements 
-   * that passed the validation specified in the passed function.
-   * @method
-   * @param {Function}
-   * @returns {MyArray} 
-   * 
- */
+  
   this.flat = function flat(depth = 1) {
-    const result = new MyArray();
-    this.forEach((elem) => {
-      if (MyArray.isMyArray(elem)) {
-        if (depht > 1) {
-          this.flat(depth - 1)
-        } else {
-          result.push(elem);
-        }
-      } else {
-        result.push(elem);
+    let result = new MyArray();
+    this.forEach((item) => {
+      if (MyArray.isMyArray(item) && depth) {
+        result = result.concat(item.flat(depth - 1));
+      } else if (item !== undefined) {
+        result.push(item);
       }
     });
-
     return result;
   }
 }
@@ -244,13 +232,12 @@ MyArray.isMyArray = (obj) => obj instanceof MyArray;
 MyArray.prototype = new MyArrayProto();
 
 const myArray = new MyArray(1, 5, 3, 7);
-
+const arr = new MyArray(1, 5,new MyArray(1, 5, 3,new MyArray(1, 5, 3, 7), 7, 3, 7));
 const myArray2 = new MyArray(5, 8, 6);
 const myArr = new MyArray(1, 2, myArray2);
 //console.log(myArray2);
-const m = myArr.flat()
-console.log(m);
 
+console.log(myArr);
 // console.log(arr);
 
 // console.log(myArray);

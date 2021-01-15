@@ -1,5 +1,18 @@
 "use strict";
 
+class MyArrayIrerator{
+  constructor(myArray){
+    this.array = myArray;
+    this.currentValue = 0;
+  }
+  next(){
+    return {
+      value: this.array[this.currentValue++],
+      done: this.currentValue > this.array.length,
+    };
+  }
+}
+
 class MyArray {
   /**
  * function constructor to create object`s MyArray
@@ -23,11 +36,11 @@ class MyArray {
   }
 
   /**
-* method to add one ore more elemnt`s in end to MyArray 
-* @method
-* @param {any}
-* @returns {number} this.length
-*/
+   * method to add one ore more elemnt`s in end to MyArray 
+   * @method
+   * @param {any}
+   * @returns {number} this.length
+   */
   push(...args) {
     for (let i = 0; i < args.length; i++) {
       this[this.length++] = args[i];
@@ -37,10 +50,10 @@ class MyArray {
 
 
   /**
-  * method to delete one elemnt in end to MyArray 
-  * @method
-  * @returns {Element | undefined} last element
-  */
+   * method to delete one elemnt in end to MyArray 
+   * @method
+   * @returns {Element | undefined} last element
+   */
   pop() {
     if (this.length === 0) {
       return;
@@ -203,7 +216,11 @@ class MyArray {
     return newArray;
   }
 
-
+  /**
+   * Method returns a new array in which all the elements of the nested subarrays have been recursively "hoisted" to the specified depth.
+   * @param {number} depth
+   * @returns {MyArray} 
+   */
   flat(depth = 1) {
     let result = new MyArray();
     this.forEach((item) => {
@@ -216,7 +233,9 @@ class MyArray {
     return result;
   }
 
-
+  [Symbol.iterator](){
+    return new MyArrayIrerator(this);
+  }
 }
 
 const myArray = new MyArray(1, 5, 3, 7);

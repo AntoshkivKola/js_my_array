@@ -1,27 +1,47 @@
 "use strict";
-// Объект с логикой
-function MyArrayProto() {
+
+class MyArray {
+  /**
+ * function constructor to create object`s MyArray
+ * @constructor
+ * @param {any}
+ * @return {object} type MyArray
+ */
+  constructor(...args) {
+    this.length = 0;
+    for (let i = 0; i < args.length; i++) {
+      this.push(args[i]);
+    }
+  }
+  /**
+   * method to check if an object is MyArray
+   * @param {object}
+   * @returns {boolean}
+   */
+  static isMyArray(obj) {
+    return obj instanceof MyArray;
+  }
 
   /**
- * method to add one ore more elemnt`s in end to MyArray 
- * @method
- * @param {any}
- * @returns {number} this.length
- */
-  this.push = function push() {
-    for (let i = 0; i < arguments.length; i++) {
-      this[this.length++] = arguments[i];
+* method to add one ore more elemnt`s in end to MyArray 
+* @method
+* @param {any}
+* @returns {number} this.length
+*/
+  push(...args) {
+    for (let i = 0; i < args.length; i++) {
+      this[this.length++] = args[i];
     }
     return this.length;
   };
 
 
   /**
- * method to delete one elemnt in end to MyArray 
- * @method
- * @returns {Element | undefined} last element
- */
-  this.pop = function pop() {
+  * method to delete one elemnt in end to MyArray 
+  * @method
+  * @returns {Element | undefined} last element
+  */
+  pop() {
     if (this.length === 0) {
       return;
     }
@@ -32,28 +52,28 @@ function MyArrayProto() {
 
 
   /**
- * method to add one ore more elemnt`s in start to MyArray 
- * @method
- * @param {any}
- * @returns {number} this.length
- */
-  this.unshift = function unshift() {
-    for (let i = (this.length + arguments.length - 1); i > 0; i--) {
-      this[i] = this[i - (arguments.length)];
+  * method to add one ore more elemnt`s in start to MyArray 
+  * @method
+  * @param {any}
+  * @returns {number} this.length
+  */
+  unshift(...args) {
+    for (let i = (this.length + args.length - 1); i > 0; i--) {
+      this[i] = this[i - (args.length)];
     }
-    for (let i = 0; i < arguments.length; i++) {
-      this[i] = arguments[i];
+    for (let i = 0; i < args.length; i++) {
+      this[i] = args[i];
       ++this.length;
     }
     return this.length;
   };
 
   /**
- * method to delete one elemnt in start to MyArray 
- * @method
- * @returns {Element | undefined} first element
- */
-  this.shift = function shift() {
+  * method to delete one elemnt in start to MyArray 
+  * @method
+  * @returns {Element | undefined} first element
+  */
+  shift() {
     if (this.length === 0) {
       return;
     }
@@ -69,8 +89,8 @@ function MyArrayProto() {
   * @param {any}
   * @returns {Object | undefined} MyArray
   */
-  this.concat = function concat() {
-    if (this.length === 0 && (arguments.length === 0 || arguments[0].length === 0)) {
+  concat(...args) {
+    if (this.length === 0 && (args.length === 0 || args[0].length === 0)) {
       return;
     }
 
@@ -79,13 +99,13 @@ function MyArrayProto() {
       newMyArray.push(this[i]);
     }
 
-    if ((arguments[0] instanceof Array) || (arguments[0] instanceof MyArray)) {
-      for (let i = 0; i < arguments[0].length; i++) {
-        newMyArray.push(arguments[0][i]);
+    if ((args[0] instanceof Array) || (args[0] instanceof MyArray)) {
+      for (let i = 0; i < args[0].length; i++) {
+        newMyArray.push(args[0][i]);
       }
     } else {
-      for (let i = 0; i < arguments.length; i++) {
-        newMyArray.push(arguments[i]);
+      for (let i = 0; i < args.length; i++) {
+        newMyArray.push(args[i]);
       }
     }
     return newMyArray;
@@ -96,21 +116,11 @@ function MyArrayProto() {
   * @method
   * @returns {object | undefined} 
   */
-  this.reverse = function reverse() {
+  reverse() {
     if (this.length === 0) {
       return;
     }
 
-    /* :)
-     const normArray = [];
-     for(let i = 0; i < this.length; i++){
-       normArray.push(this[i]);
-     }
-     normArray.reverse();
-     for(let i = 0; i < this.length; i++){
-       this[i] = normArray[i];
-     }
-     */
     let item = null;
     for (let i = 0; i < Math.ceil(this.length / 2); i++) {
       item = this[i];
@@ -128,7 +138,7 @@ function MyArrayProto() {
    * @returns {Element | undefined} 
    * 
    */
-  this.map = function map(fun) {
+  map(fun) {
     if (this.length === 0) {
       return;
     }
@@ -146,8 +156,8 @@ function MyArrayProto() {
    * @param {Function}
    * @returns {undefined} 
    * 
- */
-  this.forEach = function forEach(fun) {
+  */
+  forEach(fun) {
     if (this.length === 0) {
       return;
     }
@@ -165,8 +175,8 @@ function MyArrayProto() {
   * @param {Function}
   * @returns {boolean} 
   * 
-*/
-  this.every = function every(func) {
+  */
+  every(func) {
     for (let i = 0; i < this.length; i++) {
       if (!func(this[i], i, this)) {
         return false;
@@ -182,8 +192,8 @@ function MyArrayProto() {
    * @param {Function}
    * @returns {MyArray} 
    * 
- */
-  this.filter = function filter(func) {
+  */
+  filter(func) {
     const newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
       if (func(this[i], i, this)) {
@@ -193,8 +203,8 @@ function MyArrayProto() {
     return newArray;
   }
 
-  
-  this.flat = function flat(depth = 1) {
+
+  flat(depth = 1) {
     let result = new MyArray();
     this.forEach((item) => {
       if (MyArray.isMyArray(item) && depth) {
@@ -205,34 +215,12 @@ function MyArrayProto() {
     });
     return result;
   }
+
+
 }
-
-// Объекты с данными
-/**
- * function constructor to create object`s MyArray
- * @constructor
- * @param {any}
- * @return {object} type MyArray
- */
-function MyArray() {
-  this.length = 0;
-  for (let i = 0; i < arguments.length; i++) {
-    this.push(arguments[i]);
-  }
-}
-
-/**
- * method to check if an object is MyArray
- * @param {object}
- * @returns {boolean}
- */
-MyArray.isMyArray = (obj) => obj instanceof MyArray;
-
-// Создаём прототип(связь между объектами). Наследование
-MyArray.prototype = new MyArrayProto();
 
 const myArray = new MyArray(1, 5, 3, 7);
-const arr = new MyArray(1, 5,new MyArray(1, 5, 3,new MyArray(1, 5, 3, 7), 7, 3, 7));
+const arr = new MyArray(1, 5, new MyArray(1, 5, 3, new MyArray(1, 5, 3, 7), 7, 3, 7));
 const myArray2 = new MyArray(5, 8, 6);
 const myArr = new MyArray(1, 2, myArray2);
 //console.log(myArray2);
